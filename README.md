@@ -1,3 +1,3 @@
 # responsive-src
-Responsive source (experemtal stage)
+Responsive source (experemental stage)
 
