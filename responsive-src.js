@@ -32,7 +32,7 @@
   window.ResponsiveSrc = ResponsiveSrc;
   window.ResponsiveSrc.URI = uri;
 
-  if (jQuery !== undefined) {
+  if (window.jQuery !== undefined) {
     (function ($) {
 
       $.fn.responsiveSrc = function (options) {
