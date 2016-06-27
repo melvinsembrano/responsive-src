@@ -1,9 +1,10 @@
-var ResponsiveSrc = function (el, options) {
-  var uri = new ResponsiveSrc.URI(el.src);
-  el.src = uri.getNewUrl({w: el.width})
-};
-
 (function(window) {
+  var ResponsiveSrc = function (el, options) {
+    var uri = new ResponsiveSrc.URI(el.src);
+    el.src = uri.getNewUrl({w: el.width})
+    return this;
+  };
+
   var uri = function(url) {
     this.parser = document.createElement("a");
     this.parser.href = url;
@@ -27,16 +28,19 @@ var ResponsiveSrc = function (el, options) {
     return this.fullPath() + "?" + params.join("&");
   }
 
+  window.ResponsiveSrc = ResponsiveSrc;
   window.ResponsiveSrc.URI = uri;
 
-})(window);
+  if (jQuery !== undefined) {
+    (($ => {
 
-(($ => {
+      $.fn.responsiveSrc = function(options) {
+        return this.each(function () {
+          new ResponsiveSrc(this, options);
+        });
+      }
 
-  $.fn.responsiveSrc = function(options) {
-    return this.each(function () {
-      new ResponsiveSrc(this, options);
-    });
+    })(jQuery));
   }
 
-})(jQuery));
+})(window);
