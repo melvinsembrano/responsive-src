@@ -1,0 +1,24 @@
+{
+  "name": "responsive-src",
+  "main": "responsive-src.js",
+  "description": "Responsive src",
+  "version": "0.0.1",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:melvinsembrano/responsive-src.git"
+  },
+  "author": "Melvin Sembrano <melvinsembrano@gmail.com> (https://github.com/melvinsembrano/date-diff)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "grunt": "^1.0.1",
+    "grunt-babel": "^6.0.0",
+    "grunt-bump": "^0.8.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-exec": "^1.0.0",
+    "load-grunt-tasks": "^3.5.0",
+    "time-grunt": "^1.3.0"
+  }
+}
