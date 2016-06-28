@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     watch: {
       source: {
         files: ['src/*.js'],
-        tasks: ['babel:build', 'exec:copyDevJs']
+        tasks: ['babel:build', 'karma:spec', 'exec:copyDevJs']
       },
       htmls: {
         files: ['*.html'],
@@ -30,6 +30,13 @@ module.exports = function(grunt) {
       prepareFolder: 'mkdir -p _site',
       copyDevHtml: 'mkdir -p _site && cp -rf index.html _site/',
       copyDevJs: 'mkdir -p _site && cp -rf responsive-src.js _site/'
+    },
+
+    karma: {
+      spec: {
+        configFile: 'karma.conf.js',
+        logLevel: 'INFO'
+      }
     },
 
     connect: {
@@ -44,6 +51,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('default', ['babel']);
-  grunt.registerTask('dev', ['babel', 'exec', 'connect:server', 'watch']);
+  grunt.registerTask('dev', ['babel', 'karma', 'exec', 'connect:server', 'watch']);
 };
 

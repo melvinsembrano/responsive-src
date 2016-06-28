@@ -2,8 +2,8 @@
 
 (function (window) {
   var ResponsiveSrc = function ResponsiveSrc(el, options) {
-    var uri = new ResponsiveSrc.URI(el.src);
-    el.src = uri.getNewUrl({ w: el.width });
+    this.uri = new ResponsiveSrc.URI(el.src);
+    el.src = this.uri.getNewUrl({ w: el.width });
     return this;
   };
 
@@ -17,16 +17,28 @@
     return this.parser.protocol + "//" + this.parser.host + this.parser.pathname;
   };
 
-  uri.prototype.getNewUrl = function (args) {
-    var params = [];
-    for (var a in args) {
-      if (args[a]) {
-        params.push(a + "=" + args[a]);
-      } else {
-        params.push(a);
+  uri.prototype.path = function () {
+    return this.parser.pathname;
+  };
+
+  uri.prototype.queryString = function (args) {
+    if (args) {
+      var params = [];
+      for (var a in args) {
+        if (args[a]) {
+          params.push(a + "=" + args[a]);
+        } else {
+          params.push(a);
+        }
       }
+      return "?" + params.join("&");
+    } else {
+      return this.parser.search;
     }
-    return this.fullPath() + "?" + params.join("&");
+  };
+
+  uri.prototype.getNewUrl = function (args) {
+    return this.fullPath() + this.queryString(args);
   };
 
   window.ResponsiveSrc = ResponsiveSrc;
