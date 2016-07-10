@@ -31,7 +31,7 @@ describe('ResponsiveSrc', function() {
   });
 
 
-  describe('#inializer', function() {
+  describe('#initializer', function() {
     var img;
     beforeEach(function() {
       img = new Image();

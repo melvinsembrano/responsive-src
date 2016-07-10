@@ -1,9 +1,19 @@
 (function(window) {
-  var ResponsiveSrc = function (el, options) {
+
+  var responsiveSrc = function (el, options) {
     this.uri = new ResponsiveSrc.URI(el.src);
-    el.src = this.uri.getNewUrl({w: el.width});
+    el.style.width = "100%";
+
+    // this is an element specific function and callable later to update the image widht when resized
+    this.setSrc = function() {
+      el.src = this.uri.getNewUrl({w: el.width});
+    }
+
+    this.setSrc();
     return this;
   };
+
+
 
   var uri = function(url) {
     this.parser = document.createElement("a");
@@ -41,19 +51,22 @@
     return this.fullPath() + this.queryString(args);
   }
 
-  window.ResponsiveSrc = ResponsiveSrc;
+  window.ResponsiveSrc = responsiveSrc;
   window.ResponsiveSrc.URI = uri;
 
   if (window.jQuery !== undefined) {
-    (($ => {
-
+    (function($) {
       $.fn.responsiveSrc = function(options) {
         return this.each(function () {
-          new ResponsiveSrc(this, options);
+          var resp = new ResponsiveSrc(this, options);
+          if (options && options.active) {
+            $(window).on("resize", function() {
+              resp.setSrc();
+            });
+          }
         });
       }
-
-    })(jQuery));
+    })(jQuery);
   }
 
 })(window);
